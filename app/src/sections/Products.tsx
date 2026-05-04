@@ -95,21 +95,26 @@ function TiltCard({
               className="flex items-center gap-2 px-4 py-2 bg-white text-[#111] text-xs uppercase tracking-[0.1em] font-medium hover:bg-[#BFA45A] hover:text-white transition-colors"
             >
               <ShoppingCart size={14} />
-              {t.addToCart}
-            </button>
-            <button
-              onClick={orderViaWhatsApp}
-              className="flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white text-xs uppercase tracking-[0.1em] font-medium hover:bg-[#1ebd5a] transition-colors"
-            >
-              <MessageCircle size={14} />
-              {t.orderWhatsApp}
-            </button>
-          </div>
-        </div>
-
-        {/* Info */}
-        <div className="p-4">
-          <span className="text-[10px] uppercase tracking-[0.15em] text-[#BFA45A] font-medium">
+              <button
+                onClick={onAdd}
+                className="flex items-center gap-2 px-4 py-2 bg-white text-[#111] text-xs uppercase tracking-[0.1em] font-medium hover:bg-[#BFA45A] hover:text-white transition-colors"
+              >
+                <ShoppingCart size={14} />
+                {t.addToCart}
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  // parent will open modal for order; we'll bubble via a custom event
+                  const ev = new CustomEvent("openOrderModal", { detail: { product } });
+                  window.dispatchEvent(ev);
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white text-xs uppercase tracking-[0.1em] font-medium hover:bg-[#1ebd5a] transition-colors"
+              >
+                <MessageCircle size={14} />
+                {t.orderWhatsApp}
+              </button>
+            </div>
             {product.category === "resin" ? t.categoryResin : t.categoryGypsum}
           </span>
           <h3 className="text-sm font-medium text-[#111] dark:text-white mt-1 line-clamp-1">
