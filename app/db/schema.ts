@@ -24,3 +24,18 @@ export const products = mysqlTable("products", {
 
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
+
+export const opportunities = mysqlTable("opportunities", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  views: int("views").notNull().default(0),
+  applications: int("applications").notNull().default(0),
+  conversions: int("conversions").notNull().default(0),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+});
+
+export type Opportunity = typeof opportunities.$inferSelect;
+export type NewOpportunity = typeof opportunities.$inferInsert;
