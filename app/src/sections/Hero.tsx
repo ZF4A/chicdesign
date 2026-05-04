@@ -49,12 +49,12 @@ export default function Hero() {
           style={{ transformStyle: "preserve-3d", transition: "transform 0.1s linear" }}
         >
           {[
-            { transform: "translateZ(150px) rotateY(0deg)", img: "/images/1.jpg" },
-            { transform: "translateZ(150px) rotateY(180deg)", img: "/images/2.jpg" },
-            { transform: "translateZ(150px) rotateY(90deg)", img: "/images/5.jpg" },
-            { transform: "translateZ(150px) rotateY(-90deg)", img: "/images/8.jpg" },
-            { transform: "translateZ(150px) rotateX(90deg)", img: "/images/3.jpg" },
-            { transform: "translateZ(150px) rotateX(-90deg)", img: "/images/2.jpg" },
+            { transform: "translateZ(150px) rotateY(0deg)", img: "/images/product-1.jpg" },
+            { transform: "translateZ(150px) rotateY(180deg)", img: "/images/product-2.jpg" },
+            { transform: "translateZ(150px) rotateY(90deg)", img: "/images/product-5.jpg" },
+            { transform: "translateZ(150px) rotateY(-90deg)", img: "/images/product-8.jpg" },
+            { transform: "translateZ(150px) rotateX(90deg)", img: "/images/product-3.jpg" },
+            { transform: "translateZ(150px) rotateX(-90deg)", img: "/images/product-2.jpg" },
           ].map((face, i) => (
             <div
               key={i}
