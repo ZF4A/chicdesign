@@ -1,0 +1,8 @@
+[build]
+  base = "app"
+  publish = "dist/public"
+  command = "npm run build"
+
+# If you plan to use Netlify Functions, add the following and adjust your build to output functions there:
+# [functions]
+#   directory = "netlify/functions"
