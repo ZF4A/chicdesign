@@ -39,7 +39,6 @@ export default function Header() {
     { label: t.navAbout, href: "#about" },
     { label: t.navTraining, href: "#training" },
     { label: t.navFAQ, href: "#faq" },
-    { label: "Opportunities", to: "/opportunities" },
     { label: t.navBlackFriday, to: "/black-friday" },
     { label: t.navContact, to: "/contact" },
   ];
