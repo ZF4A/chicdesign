@@ -1,6 +1,8 @@
 import React from "react";
 import { ShoppingCart, MessageCircle, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function ProductModal({
   product,
@@ -20,6 +22,10 @@ export default function ProductModal({
   initialAction?: "add" | "order";
 }) {
   const { addItem } = useCart();
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
+  const displayName = product ? (lang === "fr" ? product.name : product.nameEn || product.name) : "";
 
   if (!open || !product) return null;
 
@@ -47,24 +53,24 @@ export default function ProductModal({
             <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded" />
           </div>
           <div>
-            <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-            <p className="text-gray-600 mb-4">{product.price.toLocaleString()} XAF</p>
+            <h3 className="text-xl font-semibold mb-2">{displayName}</h3>
+            <p className="text-gray-600 mb-4">{product.price.toLocaleString()} {t.xaf}</p>
 
             <div className="flex gap-3">
               <button
                 onClick={handleAdd}
                 className="flex items-center gap-2 px-4 py-2 bg-[#111] text-white rounded hover:opacity-90"
               >
-                <ShoppingCart /> Add to cart
+                <ShoppingCart /> {t.addToCart}
               </button>
               <button
                 onClick={handleOrder}
                 className="flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white rounded hover:opacity-90"
               >
-                <MessageCircle /> Order via WhatsApp
+                <MessageCircle /> {t.orderWhatsApp}
               </button>
             </div>
-            <div className="mt-4 text-sm text-gray-500">Tap outside the card or press X to close.</div>
+            <div className="mt-4 text-sm text-gray-500">{lang === "fr" ? "Appuyez en dehors pour fermer ou X" : "Tap outside the card or press X to close."}</div>
           </div>
         </div>
       </div>
