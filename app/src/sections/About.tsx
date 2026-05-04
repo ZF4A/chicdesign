@@ -34,7 +34,7 @@ export default function About() {
               className="absolute inset-0 bg-white dark:bg-[#0a0a0a] origin-right z-10"
             />
             <img
-              src="/images/about.jpg"
+              src="/images/1.jpg"
               alt="Artisan crafting"
               className="w-full aspect-[3/4] object-cover"
             />
