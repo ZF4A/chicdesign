@@ -89,12 +89,29 @@ export default function Header() {
               >
                 {mobileOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
-              <Link
-                to="/"
-                className="font-['Space_Grotesk'] text-lg sm:text-xl font-medium tracking-[-0.03em] text-[#111] dark:text-white"
-              >
-                CHIC DESIGN
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link to="/" className="flex items-center gap-2">
+                  <img src="/images/cd.jpg" alt="CHIC DESIGN" className="w-10 h-10 rounded-full object-cover" />
+                </Link>
+                {/* On small screens show quick Add/Order buttons near the logo */}
+                <div className="flex items-center gap-2 lg:hidden">
+                  <button
+                    onClick={() => setIsOpen(true)}
+                    aria-label="Open cart"
+                    className="w-8 h-8 bg-white text-[#111] rounded-full flex items-center justify-center shadow-sm"
+                  >
+                    <ShoppingBag size={16} />
+                  </button>
+                  <a
+                    href="https://wa.me/237699901793"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-8 h-8 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-sm"
+                  >
+                    <MessageCircle size={16} />
+                  </a>
+                </div>
+              </div>
             </div>
 
             {/* Center: Desktop Nav */}

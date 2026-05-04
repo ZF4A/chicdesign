@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/lib/translations";
 import { Instagram, MessageCircle, ArrowUp, ExternalLink } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -10,16 +11,26 @@ export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const { setIsOpen } = useCart();
 
   return (
     <footer className="bg-[#111] text-white py-16 lg:py-20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link to="/" className="font-['Space_Grotesk'] text-xl font-medium tracking-[-0.03em]">
-              CHIC DESIGN
+          <div className="sm:col-span-2 lg:col-span-1 flex items-start gap-4">
+            <Link to="/" className="flex items-center gap-3">
+              <img src="/images/cd.jpg" alt="CHIC DESIGN" className="w-16 h-16 rounded-full object-cover" />
             </Link>
+            <div>
+              <Link to="/" className="font-['Space_Grotesk'] text-xl font-medium tracking-[-0.03em]">
+                CHIC DESIGN
+              </Link>
+              <div className="mt-2 flex items-center gap-2 lg:hidden">
+                <button onClick={() => setIsOpen(true)} className="px-3 py-1 bg-white text-[#111] rounded">Ajouter</button>
+                <a href="https://wa.me/237699901793" className="px-3 py-1 bg-[#25D366] text-white rounded">Commander</a>
+              </div>
+            </div>
             <p className="text-sm text-[#aaa] mt-4 leading-[1.7] max-w-xs">
               {lang === "fr"
                 ? "Sculpter l'espace avec résine et plâtre. Des créations uniques, faites main à Yaoundé."
