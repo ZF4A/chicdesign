@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/lib/translations";
 import { motion, useInView, AnimatePresence } from "framer-motion";
@@ -8,10 +8,57 @@ export default function FAQ() {
   const { lang } = useLanguage();
   const t = translations[lang];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [query, setQuery] = useState("");
+  const [placeholderText, setPlaceholderText] = useState("");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const faqList = t.faq;
+
+  const suggestions = useMemo(() => faqList.slice(0, 6).map((f) => f.q), [faqList]);
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return faqList;
+    const q = query.toLowerCase();
+    return faqList.filter((f) => f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q));
+  }, [faqList, query]);
+
+  // Typed placeholder effect
+  useEffect(() => {
+    let mounted = true;
+    let si: any;
+    let idx = 0;
+    let char = 0;
+    let deleting = false;
+
+    const loop = () => {
+      if (!mounted) return;
+      const current = suggestions[idx % suggestions.length] || "";
+      if (!deleting) {
+        setPlaceholderText(current.slice(0, char + 1));
+        char++;
+        if (char === current.length) {
+          deleting = true;
+          si = setTimeout(loop, 1200);
+          return;
+        }
+      } else {
+        setPlaceholderText(current.slice(0, char - 1));
+        char--;
+        if (char === 0) {
+          deleting = false;
+          idx++;
+        }
+      }
+      si = setTimeout(loop, deleting ? 80 : 120);
+    };
+
+    loop();
+    return () => {
+      mounted = false;
+      clearTimeout(si);
+    };
+  }, [suggestions]);
 
   return (
     <section id="faq" className="py-24 lg:py-32 bg-white dark:bg-[#0a0a0a]">
@@ -28,8 +75,19 @@ export default function FAQ() {
           <p className="text-sm text-[#555] dark:text-[#aaa] mt-3">{t.faqSubtitle}</p>
         </motion.div>
 
+        <div className="mb-8">
+          <div className="max-w-xl mx-auto">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={placeholderText || t.searchPlaceholder || "Search FAQs..."}
+              className="w-full rounded-md border border-gray-200 dark:border-gray-800 px-4 py-3 text-sm bg-white dark:bg-[#0a0a0a] text-[#111] dark:text-white"
+            />
+          </div>
+        </div>
+
         <div className="flex flex-col">
-          {faqList.map((item, i) => (
+          {filtered.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useCart } from "@/context/CartContext";
@@ -53,6 +53,21 @@ export default function Header() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const navigateOrScroll = (href: string) => {
+    if (!href.startsWith("#")) return;
+    const id = href.replace("#", "");
+    // If we're on the root page, just scroll. Otherwise navigate to root then scroll.
+    if (location.pathname === "/" || location.pathname === "") {
+      scrollToSection(href);
+    } else {
+      navigate("/");
+      // wait a tick for navigation to complete, then scroll
+      setTimeout(() => scrollToSection(href), 100);
+    }
+  };
+
   return (
     <>
       <header
@@ -93,13 +108,17 @@ export default function Header() {
                     {item.label}
                   </Link>
                 ) : (
-                  <button
+                  <a
                     key={item.label}
-                    onClick={() => scrollToSection(item.href!)}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateOrScroll(item.href!);
+                    }}
                     className="text-xs uppercase tracking-[0.12em] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-all duration-300 hover:translate-x-1"
                   >
                     {item.label}
-                  </button>
+                  </a>
                 )
               ))}
             </nav>
@@ -181,19 +200,21 @@ export default function Header() {
                     </Link>
                   </motion.div>
                 ) : (
-                  <motion.button
+                  <motion.a
                     key={item.label}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    onClick={() => {
-                      scrollToSection(item.href!);
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateOrScroll(item.href!);
                       setMobileOpen(false);
                     }}
                     className="text-2xl font-['Space_Grotesk'] text-[#111] dark:text-white text-left"
                   >
                     {item.label}
-                  </motion.button>
+                  </motion.a>
                 )
               ))}
             </nav>
