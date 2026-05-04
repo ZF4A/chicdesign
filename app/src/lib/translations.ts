@@ -25,7 +25,7 @@ export const translations = {
 
     // About
     aboutLabel: "CRÉÉ EN 2020 — YAOUNDÉ",
-    aboutHeading: "Sculpter l'espace avec résine \u0026 Gysme",
+    aboutHeading: "Sculpter l'espace avec résine \u0026 Gypse",
     aboutBody:
       "Nous croyons que votre intérieur doit raconter une histoire. Chaque pièce est moulée, coulée et finie à la main dans notre atelier. Nous ne vendons pas simplement des objets ; nous vendons le silence, la texture et la lumière. Chaque création Chic Design est une œuvre unique, adaptée à vos goûts et à votre univers.",
     aboutCta: "LIRE NOTRE HISTOIRE",
@@ -36,12 +36,12 @@ export const translations = {
     addToCart: "Ajouter",
     orderWhatsApp: "Commander",
     categoryResin: "Résine",
-    categoryGypsum: "Gysme",
+    categoryGypsum: "Gypse",
     categoryAll: "Tous",
 
     // Training
     trainingTitle: "FORMATIONS ARTISANALES",
-    trainingSubtitle: "Apprenez l'art de la résine et du Gysme",
+    trainingSubtitle: "Apprenez l'art de la résine et du Gypse",
     basicTitle: "FORMATION BASIQUE",
     basicPrice: "75 000",
     basicDuration: "1 Semaine",
@@ -89,7 +89,7 @@ export const translations = {
       },
       {
         q: "Quel est le délai de fabrication ?",
-        a: "Pour les objets en résine : 3 jours. Au-delà de 3 jours pour les grandes quantités. Pour les objets en Gysme : 5 jours. Au-delà de 5 jours pour les grandes quantités. Après validation de votre commande.",
+        a: "Pour les objets en résine : 3 jours. Au-delà de 3 jours pour les grandes quantités. Pour les objets en Gypse : 5 jours. Au-delà de 5 jours pour les grandes quantités. Après validation de votre commande.",
       },
       {
         q: "Où livrez-vous ?",
@@ -113,11 +113,11 @@ export const translations = {
       },
       {
         q: "Vos produits sont-ils durables ?",
-        a: "Oui. La durée de vie des objets en Gysme est d'au moins 10 ans s'ils sont bien entretenus. La durée de vie des objets en résine est indéfinie.",
+        a: "Oui. La durée de vie des objets en Gypse est d'au moins 10 ans s'ils sont bien entretenus. La durée de vie des objets en résine est indéfinie.",
       },
       {
         q: "Les objets sont-ils fragiles ?",
-        a: "Nos pièces sont solides, mais restent des objets décoratifs. Une manipulation soigneuse est recommandée car les objets en Gysme sont cassables.",
+        a: "Nos pièces sont solides, mais restent des objets décoratifs. Une manipulation soigneuse est recommandée car les objets en Gypse sont cassables.",
       },
       {
         q: "Comment entretenir les créations ?",
@@ -151,7 +151,7 @@ export const translations = {
     bfDesc1:
       "Chaque vendredi, nous transformons votre expérience shopping en une véritable opportunité unique : c'est notre Black Friday hebdomadaire. Une journée spéciale dédiée à tous les amoureux de décoration, d'objets faits main et de créations originales.",
     bfDesc2:
-      "Tous nos articles fabriqués à base de Gysme et de résine sont proposés au prix unique et incroyable de 5 000 FCFA seulement.",
+      "Tous nos articles fabriqués à base de Gypse et de résine sont proposés au prix unique et incroyable de 5 000 FCFA seulement.",
     bfDesc3:
       "Que ce soit pour embellir votre maison, offrir un cadeau spécial ou simplement vous faire plaisir, c'est le moment idéal pour découvrir des pièces artisanales uniques, soigneusement conçues avec passion et créativité.",
     bfDesc4:
