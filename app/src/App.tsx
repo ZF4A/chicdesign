@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route, useLocation } from "react-router";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -23,7 +24,6 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="black-friday" element={<BlackFriday />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="opportunities" element={<Opportunities />} />
             <Route path="admin" element={<Admin />} />
           </Routes>
         </CartProvider>
