@@ -4,6 +4,8 @@ import { useCart } from "@/context/CartContext";
 import { trpc } from "@/providers/trpc";
 import { translations } from "@/lib/translations";
 import { motion, useInView } from "framer-motion";
+import { useEffect } from "react";
+import ProductModal from "@/components/ProductModal";
 import { ShoppingCart, MessageCircle } from "lucide-react";
 
 interface ProductItem {
@@ -15,19 +17,21 @@ interface ProductItem {
   image: string;
   stock: number;
   featured: number;
+  description?: string | null;
+  descriptionEn?: string | null;
 }
 
 const fallbackProducts: ProductItem[] = [
-  { id: 1, name: "Plateau décoratif en résine", nameEn: "Decorative Resin Tray", price: 15000, category: "resin", image: "/images/product-1.jpg", stock: 20, featured: 1 },
+  { id: 1, name: "Plateau décoratif en résine", nameEn: "Decorative Resin Tray", price: 15000, category: "resin", image: "/images/product-1.jpg", stock: 20, featured: 1, description: "Plateau décoratif en résine. Couleurs : rose poudré et doré. Format moyen.", descriptionEn: "Decorative resin tray. Powder pink & gold. Medium size." },
   { id: 2, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/product-2.jpg", stock: 8, featured: 1 },
-  { id: 3, name: "5 Dessous de verre en résine (forme coquillage)", nameEn: "5 Resin Coasters (Shell)", price: 5000, category: "resin", image: "/images/product-3.jpg", stock: 12, featured: 0 },
-  { id: 4, name: "2 pots décoratifs + bibelo + plateau", nameEn: "2 Decorative Pots + Trinket + Tray", price: 25000, category: "gypsum", image: "/images/product-4.jpg", stock: 15, featured: 0 },
-  { id: 5, name: "Sol en résine (effet marbre liquide)", nameEn: "Resin Floor (Liquid Marble)", price: 1000000, category: "resin", image: "/images/product-5.jpg", stock: 6, featured: 1 },
-  { id: 6, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/product-6.jpg", stock: 10, featured: 0 },
-  { id: 7, name: "Vase double boule", nameEn: "Double Sphere Vase", price: 15000, category: "resin", image: "/images/product-7.jpg", stock: 18, featured: 0 },
-  { id: 8, name: "Pack rose marbré", nameEn: "Marbled Rose Pack", price: 10000, category: "gypsum", image: "/images/product-8.jpg", stock: 7, featured: 1 },
-  { id: 9, name: "Horloge murale en résine (style géode)", nameEn: "Geode Style Resin Wall Clock", price: 25000, category: "resin", image: "/images/product-9.jpg", stock: 9, featured: 0 },
-  { id: 10, name: "1 Boîtes décorative + plateau + pot", nameEn: "Decorative Box + Tray + Pot", price: 10000, category: "gypsum", image: "/images/product-10.jpg", stock: 5, featured: 1 },
+  { id: 3, name: "5 Dessous de verre en résine (forme coquillage)", nameEn: "5 Resin Coasters (Shell)", price: 5000, category: "resin", image: "/images/product-3.jpg", stock: 12, featured: 0, description: "Cinq dessous de verre en résine, finition nacrée et bord doré.", descriptionEn: "Five pearly resin coasters with gold rim." },
+  { id: 4, name: "2 pots décoratifs + bibelo + plateau", nameEn: "2 Decorative Pots + Trinket + Tray", price: 25000, category: "gypsum", image: "/images/product-4.jpg", stock: 15, featured: 0, description: "Ensemble décoratif en gypse, pièces assorties pour table.", descriptionEn: "Gypsum decorative set, matching pieces for table." },
+  { id: 5, name: "Sol en résine (effet marbre liquide)", nameEn: "Resin Floor (Liquid Marble)", price: 1000000, category: "resin", image: "/images/product-5.jpg", stock: 6, featured: 1, description: "Sol en résine imitation marbre, finition lisse et brillante.", descriptionEn: "Resin floor with liquid marble effect, smooth glossy finish." },
+  { id: 6, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/product-6.jpg", stock: 10, featured: 0, description: "Sculpture romantique en gypse avec petite coupelle.", descriptionEn: "Romantic gypsum sculpture with small dish." },
+  { id: 7, name: "Vase double boule", nameEn: "Double Sphere Vase", price: 15000, category: "resin", image: "/images/product-7.jpg", stock: 18, featured: 0, description: "Vase moderne en résine, deux sphères imbriquées.", descriptionEn: "Modern resin vase with two interlocking spheres." },
+  { id: 8, name: "Pack rose marbré", nameEn: "Marbled Rose Pack", price: 10000, category: "gypsum", image: "/images/product-8.jpg", stock: 7, featured: 1, description: "Pack de pièces marbrées roses en gypse.", descriptionEn: "Marbled rose gypsum pieces pack." },
+  { id: 9, name: "Horloge murale en résine (style géode)", nameEn: "Geode Style Resin Wall Clock", price: 25000, category: "resin", image: "/images/product-9.jpg", stock: 9, featured: 0, description: "Horloge résine style géode avec incrustations nacrées.", descriptionEn: "Geode-style resin wall clock with pearly inlays." },
+  { id: 10, name: "1 Boîtes décorative + plateau + pot", nameEn: "Decorative Box + Tray + Pot", price: 10000, category: "gypsum", image: "/images/product-10.jpg", stock: 5, featured: 1, description: "Ensemble cadeau : boîte décorative, plateau et petit pot.", descriptionEn: "Gift set: decorative box, tray and small pot." },
 ];
 
 function TiltCard({
@@ -74,10 +78,14 @@ function TiltCard({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.08 }}
     >
-      <div
+          <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onClick={() => {
+          const ev = new CustomEvent("openProductModal", { detail: { product } });
+          window.dispatchEvent(ev);
+        }}
         className="group relative bg-[#F7F7F7] dark:bg-[#1a1a1a] overflow-hidden transition-shadow duration-500 hover:shadow-[0_12px_24px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_12px_24px_rgba(0,0,0,0.4)]"
         style={{ transformStyle: "preserve-3d", transition: "transform 0.15s ease-out" }}
       >
@@ -91,7 +99,10 @@ function TiltCard({
           {/* Hover Overlay */}
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-3">
             <button
-              onClick={onAdd}
+              onClick={(e) => {
+                e.stopPropagation();
+                onAdd();
+              }}
               className="flex items-center gap-2 px-4 py-2 bg-white text-[#111] text-xs uppercase tracking-[0.1em] font-medium hover:bg-[#BFA45A] hover:text-white transition-colors"
             >
               <ShoppingCart size={14} />
@@ -99,6 +110,7 @@ function TiltCard({
             </button>
             <button
               onClick={(e) => {
+                e.stopPropagation();
                 e.preventDefault();
                 // parent will open modal for order; we'll bubble via a custom event
                 const ev = new CustomEvent("openOrderModal", { detail: { product } });
@@ -110,13 +122,19 @@ function TiltCard({
               {t.orderWhatsApp}
             </button>
           </div>
-          {/* end overlay */}
-          <h3 className="text-sm font-medium text-[#111] dark:text-white mt-1 line-clamp-1">
-            {lang === "fr" ? product.name : product.nameEn || product.name}
-          </h3>
-          <p className="text-sm text-[#555] dark:text-[#aaa] mt-1">
-            {product.price.toLocaleString()} {t.xaf}
-          </p>
+            {/* end overlay */}
+            <h3 className="text-sm font-medium text-[#111] dark:text-white mt-1 line-clamp-1">
+              {lang === "fr" ? product.name : product.nameEn || product.name}
+            </h3>
+            <p className="text-sm text-[#555] dark:text-[#aaa] mt-1">
+              {product.price.toLocaleString()} {t.xaf}
+            </p>
+            {/* description beneath image */}
+            {((lang === "fr" ? product.description : product.descriptionEn) || product.description) && (
+              <p className="text-xs text-[#666] dark:text-[#999] mt-1 line-clamp-2">
+                {lang === "fr" ? product.description : product.descriptionEn || product.description}
+              </p>
+            )}
         </div>
       </div>
     </motion.div>
@@ -126,6 +144,9 @@ function TiltCard({
 export default function Products() {
   const { lang } = useLanguage();
   const { addItem } = useCart();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selected, setSelected] = useState<ProductItem | null>(null);
+  const [modalAction, setModalAction] = useState<"add" | "order" | undefined>(undefined);
   const t = translations[lang];
   const [filter, setFilter] = useState<"all" | "resin" | "gypsum">("all");
   const ref = useRef(null);
@@ -145,6 +166,27 @@ export default function Products() {
 
   const filtered =
     filter === "all" ? products : products.filter((p) => p.category === filter);
+
+  useEffect(() => {
+    const onOpenOrder = (ev: Event) => {
+      const ce = ev as CustomEvent<{ product: ProductItem }>;
+      setSelected(ce.detail.product);
+      setModalAction("order");
+      setModalOpen(true);
+    };
+    const onOpenProduct = (ev: Event) => {
+      const ce = ev as CustomEvent<{ product: ProductItem }>;
+      setSelected(ce.detail.product);
+      setModalAction(undefined);
+      setModalOpen(true);
+    };
+    window.addEventListener("openOrderModal", onOpenOrder as EventListener);
+    window.addEventListener("openProductModal", onOpenProduct as EventListener);
+    return () => {
+      window.removeEventListener("openOrderModal", onOpenOrder as EventListener);
+      window.removeEventListener("openProductModal", onOpenProduct as EventListener);
+    };
+  }, []);
 
   return (
     <section id="products" className="py-24 lg:py-32 bg-white dark:bg-[#0a0a0a]">
@@ -204,6 +246,28 @@ export default function Products() {
             />
           ))}
         </div>
+        {/* Product modal for touch/desktop full view */}
+        {/* lazy include ProductModal to show full product, Add and Order */}
+        <ProductModal
+          product={
+            selected
+              ? {
+                  id: selected.id,
+                  name: lang === "fr" ? selected.name : selected.nameEn || selected.name,
+                  nameEn: selected.nameEn,
+                  price: selected.price,
+                  image: selected.image,
+                }
+              : null
+          }
+          open={modalOpen}
+          initialAction={modalAction}
+          onClose={() => {
+            setModalOpen(false);
+            setSelected(null);
+            setModalAction(undefined);
+          }}
+        />
       </div>
     </section>
   );
