@@ -18,16 +18,16 @@ interface ProductItem {
 }
 
 const fallbackProducts: ProductItem[] = [
-  { id: 1, name: "Plateau décoratif en résine", nameEn: "Decorative Resin Tray", price: 15000, category: "resin", image: "/images/product-1.jpg", stock: 20, featured: 1 },
-  { id: 2, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/product-2.jpg", stock: 8, featured: 1 },
-  { id: 3, name: "5 Dessous de verre en résine (forme coquillage)", nameEn: "5 Resin Coasters (Shell)", price: 5000, category: "resin", image: "/images/product-3.jpg", stock: 12, featured: 0 },
-  { id: 4, name: "2 pots décoratifs + bibelo + plateau", nameEn: "2 Decorative Pots + Trinket + Tray", price: 25000, category: "gypsum", image: "/images/product-4.jpg", stock: 15, featured: 0 },
-  { id: 5, name: "Sol en résine (effet marbre liquide)", nameEn: "Resin Floor (Liquid Marble)", price: 1000000, category: "resin", image: "/images/product-5.jpg", stock: 6, featured: 1 },
-  { id: 6, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/product-6.jpg", stock: 10, featured: 0 },
-  { id: 7, name: "Vase double boule", nameEn: "Double Sphere Vase", price: 15000, category: "resin", image: "/images/product-7.jpg", stock: 18, featured: 0 },
-  { id: 8, name: "Pack rose marbré", nameEn: "Marbled Rose Pack", price: 10000, category: "gypsum", image: "/images/product-8.jpg", stock: 7, featured: 1 },
-  { id: 9, name: "Horloge murale en résine (style géode)", nameEn: "Geode Style Resin Wall Clock", price: 25000, category: "resin", image: "/images/product-9.jpg", stock: 9, featured: 0 },
-  { id: 10, name: "1 Boîtes décorative + plateau + pot", nameEn: "Decorative Box + Tray + Pot", price: 10000, category: "gypsum", image: "/images/product-10.jpg", stock: 5, featured: 1 },
+  { id: 1, name: "Plateau décoratif en résine", nameEn: "Decorative Resin Tray", price: 15000, category: "resin", image: "/images/1.jpg", stock: 20, featured: 1 },
+  { id: 2, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/2.jpg", stock: 8, featured: 1 },
+  { id: 3, name: "5 Dessous de verre en résine (forme coquillage)", nameEn: "5 Resin Coasters (Shell)", price: 5000, category: "resin", image: "/images/3.jpg", stock: 12, featured: 0 },
+  { id: 4, name: "2 pots décoratifs + bibelo + plateau", nameEn: "2 Decorative Pots + Trinket + Tray", price: 25000, category: "gypsum", image: "/images/4.jpg", stock: 15, featured: 0 },
+  { id: 5, name: "Sol en résine (effet marbre liquide)", nameEn: "Resin Floor (Liquid Marble)", price: 1000000, category: "resin", image: "/images/5.jpg", stock: 6, featured: 1 },
+  { id: 6, name: "Sculpture couple + coupelle", nameEn: "Couple Sculpture + Dish", price: 10000, category: "gypsum", image: "/images/6.jpg", stock: 10, featured: 0 },
+  { id: 7, name: "Vase double boule", nameEn: "Double Sphere Vase", price: 15000, category: "resin", image: "/images/7.jpg", stock: 18, featured: 0 },
+  { id: 8, name: "Pack rose marbré", nameEn: "Marbled Rose Pack", price: 10000, category: "gypsum", image: "/images/8.jpg", stock: 7, featured: 1 },
+  { id: 9, name: "Horloge murale en résine (style géode)", nameEn: "Geode Style Resin Wall Clock", price: 25000, category: "resin", image: "/images/9.jpg", stock: 9, featured: 0 },
+  { id: 10, name: "1 Boîtes décorative + plateau + pot", nameEn: "Decorative Box + Tray + Pot", price: 10000, category: "gypsum", image: "/images/10.jpg", stock: 5, featured: 1 },
 ];
 
 function TiltCard({
