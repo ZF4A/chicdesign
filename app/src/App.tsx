@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import BlackFriday from "./pages/BlackFriday";
 import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
-import Opportunities from "./pages/Opportunities";
 
 export default function App() {
   const location = useLocation();
