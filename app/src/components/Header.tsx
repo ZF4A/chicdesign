@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useCart } from "@/context/CartContext";
@@ -10,6 +10,7 @@ import {
   Moon,
   Menu,
   X,
+  MessageCircle,
   Globe,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
